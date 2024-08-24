@@ -7,6 +7,8 @@ const diceImg = document.querySelector(".dice");
 const rollDiceBtn = document.querySelector(".btn--roll");
 const curent0El = document.querySelector("#current--0");
 const curent1El = document.querySelector("#current--1");
+const player0El = document.querySelector(".player--0");
+const player1El = document.querySelector(".player--1");
 const newGameBtn = document.querySelector(".btn--new");
 const holdBtn = document.querySelector(".btn--hold");
 
@@ -37,7 +39,14 @@ rollDiceBtn.addEventListener("click", function () {
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore; // dynamically connecting the active player 0 or 1 to their currentScore
   } else {
+    // set the activePlayer's current score to 0
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
     // switch to next player
     activePlayer = activePlayer === 0 ? 1 : 0;
+    // reset the new activePlayer's score counter to 0
+    currentScore = 0;
+    // toggle method of player--active class: it will add the class if its not there, or remove the class if it is there!
+    player0El.classList.toggle("player--active");
+    player1El.classList.toggle("player--active");
   }
 });
