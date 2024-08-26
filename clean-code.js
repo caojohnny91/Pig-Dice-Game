@@ -1,8 +1,7 @@
 "use strict";
 
-// Selecting elements
 const score0El = document.querySelector("#score--0");
-const score1El = document.getElementById("score--1"); // another way to select element Id instead of querySelector, and dont need #
+const score1El = document.getElementById("score--1");
 const diceImg = document.querySelector(".dice");
 const rollDiceBtn = document.querySelector(".btn--roll");
 const current0El = document.querySelector("#current--0");
@@ -14,17 +13,14 @@ const newGameBtn = document.querySelector(".btn--new");
 const player0Name = document.getElementById("name--0");
 const player1Name = document.getElementById("name--1");
 
-// for scoping need to declare these variables outside of init() and the reassign later
 let totalScores, currentScore, activePlayer, playing;
 
 // Starting conditions
 const init = function () {
-  totalScores = [0, 0]; // beginning total scores of each player, player--0 (player 1) is at idx 0 and player--1 (player 2) is at idx 1
-
+  // set game variables
+  totalScores = [0, 0];
   currentScore = 0;
-  activePlayer = 0; // Player 1 is player--0 to start
-
-  // create boolean variable that holds the game state
+  activePlayer = 0;
   playing = true;
 
   // set all scores back to 0
@@ -33,20 +29,16 @@ const init = function () {
   current0El.textContent = 0;
   current1El.textContent = 0;
 
-  // remove player--winner class from both players
+  // remove/add class from players
   player0El.classList.remove("player--winner");
   player1El.classList.remove("player--winner");
 
-  // remove player--active class only from player 1 (player 0 should be active)
   player1El.classList.remove("player--active");
 
-  // add player--active class to player 0
   player0El.classList.add("player--active");
 
-  // make diceImg hidden
   diceImg.classList.add("hidden");
 
-  // make btns seen
   rollDiceBtn.classList.remove("hidden");
   holdBtn.classList.remove("hidden");
 
@@ -55,9 +47,8 @@ const init = function () {
   player1Name.textContent = "Player 2";
 };
 
-init(); // need to call this function and game to work
+init();
 
-// create DRY switchPlayer function
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   // switch to next player
@@ -69,10 +60,7 @@ const switchPlayer = function () {
   player1El.classList.toggle("player--active");
 };
 
-// Create event when Roll Dice button is clicked
-// Generate random number from 1-6 and make corresponding dice img appear
 rollDiceBtn.addEventListener("click", function () {
-  // add new playing state
   if (playing) {
     // generate number 1-6 number
     const diceNumber = Math.trunc(Math.random() * 6) + 1;
@@ -89,23 +77,14 @@ rollDiceBtn.addEventListener("click", function () {
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore; // dynamically connecting the active player 0 or 1 to their currentScore
     } else {
-      switchPlayer(); // this new function replaces the below code
-      // set the activePlayer's current score to 0
-      // document.getElementById(`current--${activePlayer}`).textContent = 0;
-      // // switch to next player
-      // activePlayer = activePlayer === 0 ? 1 : 0;
-      // // reset the new activePlayer's score counter to 0
-      // currentScore = 0;
-      // // toggle method of player--active class: it will add the class if its not there, or remove the class if it is there!
-      // player0El.classList.toggle("player--active");
-      // player1El.classList.toggle("player--active");
+      switchPlayer();
     }
   }
 });
 
-// implement Hold Button
+
 holdBtn.addEventListener("click", function () {
-  // add new playing state
+
   if (playing) {
     // Add current score to the active player's score
     totalScores[activePlayer] += currentScore; // activePlayer = 0 or 1 which corresponds to idx, so totalScores[0] or totalScores[1]
@@ -115,10 +94,8 @@ holdBtn.addEventListener("click", function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       totalScores[activePlayer];
 
-    // check is player's score is >= 100
-    if (totalScores[activePlayer] >= 100) {
-      // finish the game
-      // set playing to false to deactivate the above logic in rollDiceBtn and holdBtn
+
+    if (totalScores[activePlayer] >= 10) {
       playing = false;
 
       // add player--winner class to implement winner CSS
@@ -126,7 +103,6 @@ holdBtn.addEventListener("click", function () {
         .querySelector(`.player--${activePlayer}`)
         .classList.add("player--winner");
 
-      // Update Winning Player's title
       document.getElementById(`name--${activePlayer}`).textContent = `Player ${
         activePlayer + 1
       } is the Winner! 🥳 🎉`;
@@ -147,5 +123,4 @@ holdBtn.addEventListener("click", function () {
   }
 });
 
-// call init function to reset as soon as the user clicks on the button
 newGameBtn.addEventListener("click", init);
