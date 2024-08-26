@@ -9,21 +9,52 @@ const current0El = document.querySelector("#current--0");
 const current1El = document.querySelector("#current--1");
 const player0El = document.querySelector(".player--0");
 const player1El = document.querySelector(".player--1");
-const newGameBtn = document.querySelector(".btn--new");
 const holdBtn = document.querySelector(".btn--hold");
+const newGameBtn = document.querySelector(".btn--new");
+const player0Name = document.getElementById("name--0");
+const player1Name = document.getElementById("name--1");
+
+// for scoping need to declare these variables outside of init() and the reassign later
+let totalScores, currentScore, activePlayer, playing;
 
 // Starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceImg.classList.add("hidden");
+const init = function () {
+  totalScores = [0, 0]; // beginning total scores of each player, player--0 (player 1) is at idx 0 and player--1 (player 2) is at idx 1
 
-const totalScores = [0, 0]; // beginning total scores of each player, player--0 (player 1) is at idx 0 and player--1 (player 2) is at idx 1
+  currentScore = 0;
+  activePlayer = 0; // Player 1 is player--0 to start
 
-let currentScore = 0;
-let activePlayer = 0; // Player 1 is player--0 to start
+  // create boolean variable that holds the game state
+  playing = true;
 
-// create boolean variable that holds the game state
-let playing = true;
+  // set all scores back to 0
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+
+  // remove player--winner class to both players
+  player0El.classList.remove("player--winner");
+  player1El.classList.remove("player--winner");
+
+  // remove player--active class only from player 1 (player 0 should be active)
+  player1El.classList.remove("player--active");
+
+  // add player--active class to player 0
+  player0El.classList.add("player--active");
+
+  // make diceImg hidden
+  diceImg.classList.add("hidden");
+
+  // make btns seen
+  rollDiceBtn.classList.remove("hidden");
+  holdBtn.classList.remove("hidden");
+
+  // set player names bacl to original
+  player0Name.textContent = "Player 1";
+  player1Name.textContent = "Player 2";
+};
+init(); // need to call this function to work
 
 // create DRY switchPlayer function
 const switchPlayer = function () {
@@ -84,7 +115,7 @@ holdBtn.addEventListener("click", function () {
       totalScores[activePlayer];
 
     // check is player's score is >= 100
-    if (totalScores[activePlayer] >= 20) {
+    if (totalScores[activePlayer] >= 100) {
       // finish the game
       // set playing to false to deactivate the above logic in rollDiceBtn and holdBtn
       playing = false;
@@ -114,3 +145,6 @@ holdBtn.addEventListener("click", function () {
     }
   }
 });
+
+// call init function to reset as soon as the user clicks on the button
+newGameBtn.addEventListener("click", init);
