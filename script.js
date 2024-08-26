@@ -5,8 +5,8 @@ const score0El = document.querySelector("#score--0");
 const score1El = document.getElementById("score--1"); // another way to select element Id instead of querySelector, and dont need #
 const diceImg = document.querySelector(".dice");
 const rollDiceBtn = document.querySelector(".btn--roll");
-const curent0El = document.querySelector("#current--0");
-const curent1El = document.querySelector("#current--1");
+const current0El = document.querySelector("#current--0");
+const current1El = document.querySelector("#current--1");
 const player0El = document.querySelector(".player--0");
 const player1El = document.querySelector(".player--1");
 const newGameBtn = document.querySelector(".btn--new");
@@ -18,8 +18,21 @@ score1El.textContent = 0;
 diceImg.classList.add("hidden");
 
 const totalScores = [0, 0]; // beginning total scores of each player, player--0 (player 1) is at idx 0 and player--1 (player 2) is at idx 1
+
 let currentScore = 0;
 let activePlayer = 0; // Player 1 is player--0 to start
+
+// create DRY switchPlayer function
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  // switch to next player
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  // reset the new activePlayer's score counter to 0
+  currentScore = 0;
+  // toggle method of player--active class: it will add the class if its not there, or remove the class if it is there!
+  player0El.classList.toggle("player--active");
+  player1El.classList.toggle("player--active");
+};
 
 // Create event when Roll Dice button is clicked
 // Generate random number from 1-6 and make corresponding dice img appear
@@ -39,14 +52,32 @@ rollDiceBtn.addEventListener("click", function () {
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore; // dynamically connecting the active player 0 or 1 to their currentScore
   } else {
+    switchPlayer(); // this new function replaces the below code
     // set the activePlayer's current score to 0
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    // switch to next player
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    // reset the new activePlayer's score counter to 0
-    currentScore = 0;
-    // toggle method of player--active class: it will add the class if its not there, or remove the class if it is there!
-    player0El.classList.toggle("player--active");
-    player1El.classList.toggle("player--active");
+    // document.getElementById(`current--${activePlayer}`).textContent = 0;
+    // // switch to next player
+    // activePlayer = activePlayer === 0 ? 1 : 0;
+    // // reset the new activePlayer's score counter to 0
+    // currentScore = 0;
+    // // toggle method of player--active class: it will add the class if its not there, or remove the class if it is there!
+    // player0El.classList.toggle("player--active");
+    // player1El.classList.toggle("player--active");
   }
+});
+
+// implement Hold Button
+holdBtn.addEventListener("click", function () {
+  // Add current score to the active player's score
+  totalScores[activePlayer] += currentScore; // activePlayer = 0 or 1 which corresponds to idx, so totalScores[0] or totalScores[1]
+  // totalScores[1] = totalScores + currentScpre
+
+  // dynamically change the #score--0 or 1.textContent with the totalScore count
+  document.getElementById(`score--${activePlayer}`).textContent =
+    totalScores[activePlayer];
+
+  // check is player's score is >= 100
+  // finish the game
+
+  // switch to next player
+  switchPlayer();
 });
