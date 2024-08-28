@@ -15,6 +15,7 @@ const player1Name = document.getElementById("name--1");
 const instructionsBtn = document.querySelector(".btn--instructions");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
+const closeModalBtn = document.querySelector(".close-modal");
 
 let totalScores, currentScore, activePlayer, playing;
 
@@ -128,4 +129,17 @@ newGameBtn.addEventListener("click", init);
 instructionsBtn.addEventListener("click", function () {
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
+});
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+closeModalBtn.addEventListener("click", function () {
+  closeModal();
+});
+
+overlay.addEventListener("click", function () {
+  closeModal();
 });
