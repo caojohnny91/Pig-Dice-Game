@@ -124,8 +124,10 @@ holdBtn.addEventListener("click", function () {
   }
 });
 
+// New Game Reset Btn
 newGameBtn.addEventListener("click", init);
 
+// Modal Window
 instructionsBtn.addEventListener("click", function () {
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
