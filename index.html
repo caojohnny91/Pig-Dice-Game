@@ -30,7 +30,27 @@
       <button class="btn btn--new">🔄 New game</button>
       <button class="btn btn--roll">🎲 Roll dice</button>
       <button class="btn btn--hold">📥 Hold</button>
+      <button class="btn btn--instructions">🗺️ Instructions</button>
     </main>
+
+    <div class="modal">
+      <button class="close-modal">&times;</button>
+      <h1>Pig Dice Game Instructions</h1>
+      <h2>Objective: Reach 100 points first!</h2>
+      <p>How to Play:</p>
+      <p>
+        <li>
+          On Your Turn: Roll the die repeatedly to add to your turn score.
+        </li>
+        <li>Roll a 1: Lose all points for that turn and end your turn.</li>
+        <li>
+          Hold Anytime: Add your turn score to your total and end your turn.
+        </li>
+        <li>Win: The first to 100 points wins!</li>
+        <li>Tip: Balance risk and safety to win!</li>
+      </p>
+    </div>
+    <div class="overlay hidden"></div>
     <script src="clean-code.js"></script>
     <!-- <script src="script.js"></script> -->
   </body>

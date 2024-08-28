@@ -131,8 +131,11 @@ main {
   margin-right: 0.7rem;
 }
 
+.btn--directions {
+  top: 0rem;
+}
 .btn--new {
-  top: 4rem;
+  top: 7rem;
 }
 .btn--roll {
   top: 39.3rem;
