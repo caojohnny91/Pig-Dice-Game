@@ -12,6 +12,9 @@ const holdBtn = document.querySelector(".btn--hold");
 const newGameBtn = document.querySelector(".btn--new");
 const player0Name = document.getElementById("name--0");
 const player1Name = document.getElementById("name--1");
+const instructionsBtn = document.querySelector(".btn--instructions");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
 
 let totalScores, currentScore, activePlayer, playing;
 
@@ -82,9 +85,7 @@ rollDiceBtn.addEventListener("click", function () {
   }
 });
 
-
 holdBtn.addEventListener("click", function () {
-
   if (playing) {
     // Add current score to the active player's score
     totalScores[activePlayer] += currentScore; // activePlayer = 0 or 1 which corresponds to idx, so totalScores[0] or totalScores[1]
@@ -93,7 +94,6 @@ holdBtn.addEventListener("click", function () {
     // dynamically change the #score--0 or 1.textContent with the totalScore count
     document.getElementById(`score--${activePlayer}`).textContent =
       totalScores[activePlayer];
-
 
     if (totalScores[activePlayer] >= 10) {
       playing = false;
@@ -124,3 +124,8 @@ holdBtn.addEventListener("click", function () {
 });
 
 newGameBtn.addEventListener("click", init);
+
+instructionsBtn.addEventListener("click", function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+});
