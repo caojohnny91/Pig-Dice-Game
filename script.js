@@ -13,6 +13,10 @@ const holdBtn = document.querySelector(".btn--hold");
 const newGameBtn = document.querySelector(".btn--new");
 const player0Name = document.getElementById("name--0");
 const player1Name = document.getElementById("name--1");
+const instructionsBtn = document.querySelector(".btn--instructions");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const closeModalBtn = document.querySelector(".close-modal");
 
 // for scoping need to declare these variables outside of init() and the reassign later
 let totalScores, currentScore, activePlayer, playing;
@@ -149,3 +153,30 @@ holdBtn.addEventListener("click", function () {
 
 // call init function to reset as soon as the user clicks on the button
 newGameBtn.addEventListener("click", init);
+
+instructionsBtn.addEventListener("click", function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+});
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+closeModalBtn.addEventListener("click", function () {
+  closeModal();
+});
+
+overlay.addEventListener("click", function () {
+  closeModal();
+});
+
+document.addEventListener("keydown", function (event) {
+  console.log(event);
+  if (event.key === "Escape") {
+    console.log("Escape Key Pressed");
+
+    closeModal();
+  }
+});

@@ -197,6 +197,7 @@ main {
 .modal h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 .modal p,
 li {
@@ -224,4 +225,8 @@ li {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.btn--instructions::first-letter {
+  margin: 0;
 }

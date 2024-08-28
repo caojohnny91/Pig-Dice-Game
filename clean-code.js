@@ -96,7 +96,7 @@ holdBtn.addEventListener("click", function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       totalScores[activePlayer];
 
-    if (totalScores[activePlayer] >= 10) {
+    if (totalScores[activePlayer] >= 100) {
       playing = false;
 
       // add player--winner class to implement winner CSS
@@ -142,4 +142,10 @@ closeModalBtn.addEventListener("click", function () {
 
 overlay.addEventListener("click", function () {
   closeModal();
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
 });
