@@ -131,9 +131,6 @@ main {
   margin-right: 0.7rem;
 }
 
-.btn--directions {
-  top: 0rem;
-}
 .btn--new {
   top: 7rem;
 }
@@ -229,4 +226,7 @@ li {
 
 .btn--instructions::first-letter {
   margin: 0;
+}
+.btn--instructions {
+  margin-top: 0.5rem;
 }
